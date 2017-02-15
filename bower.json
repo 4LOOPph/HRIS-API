@@ -1,0 +1,23 @@
+{
+  "name": "project-name",
+  "description": "project description",
+  "main": "index.js",
+  "authors": [
+    "4loop"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bower-aui": "*",
+    "blob-util": "^1.2.1"
+  }
+}

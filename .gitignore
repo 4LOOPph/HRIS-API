@@ -1,0 +1,9 @@
+/node_modules/
+/npm-debug.log
+/bower_components/
+/public/uploads
+/public/tmp
+.DS_Store
+.idea
+*.xlsx
+/public/bower_components

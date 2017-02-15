@@ -1,0 +1,797 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "HRIS API",
+        "description": "Welcome to the HRIS REST API reference. This page documents the REST resources available in Symphony, along with expected HTTP response codes and sample requests. You can use the POS17 REST API to build add-ons for POS17 Apps(CMS, PORTAL, Mobile Apps), develop integrations between POS17 and other applications, or script interactions with POS17.",
+        "contact": {
+            "email": "info@4loop.ph"
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "tags": [{
+        "name": "Auth Session",
+        "description": "REST resource for User Authentication"
+    }, {
+        "name": "Admin",
+        "description": "User/Admin login"
+    },{
+        "name": "Persons",
+        "description": "Service for Managing Persons (Customer / Employee)"
+    }, {
+        "name": "Employee",
+        "description": "employee details and adding employee"
+    }, {
+        "name": "Payroll",
+        "description": "creating, editing, showing of payrolls"
+    }, {
+        "name": "Work Schedule",
+        "description": "creating, editing, assigning to employee, and showing of Work Schedule"
+    }],
+    "paths": {
+        "/api/1.0/user": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Update User Profile of the Current User logged in",
+                "summary": "Update User Profile of the Current User logged in",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "$ref": "#/definitions/User_login"
+                    },
+
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }         
+        },
+        "/api/1.0/employee": {
+            "post": {
+                "tags": [
+                    "Employee"
+                ],
+                "description": "Adding an employee",
+                "summary": "Adding an employee",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "$ref": "#/definitions/addEmployee"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            },
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "description": "Show the list of all employees",
+                "summary": "Show the list of all employees",
+                "parameters": [],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }          
+        },
+        "/api/1.0/employee/{e_idno}" : {
+            "put": {
+                "tags": [
+                    "Employee"
+                ],
+                "description": "edit employee information",
+                "summary": "edit employee information",
+                "parameters": [{
+                    "name": "e_idno",
+                    "in": "path",
+                    "description": "e_idno",
+                    "required": true,
+                    "type": "string"
+                },{
+                    "name": "body",
+                    "in": "body",
+                    "description": "employee Update Info",
+                    "schema": {
+                        "$ref": "#/definitions/editEmployee"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "description": "Search employee information by employee ID",
+                "summary": "Search employee information by employee ID",
+                "parameters": [{
+                    "name": "e_idno",
+                    "in": "path",
+                    "description": "e_idno",
+                    "required": false,
+                    "type": "string"
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            }
+        },
+        "/api/1.0/upload/{device_no}" : {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "description": "get employees image via user id",
+                "summary": "get employees image via user id",
+                "parameters": [{
+                    "name": "device_no",
+                    "in": "path",
+                    "description": "device_no",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            },
+            "put": {
+                "tags": [
+                    "Employee"
+                ],
+                "description": "upload profile Picture",
+                "summary": "upload profile Picture",
+                "parameters": [{
+                    "name": "device_no",
+                    "in": "path",
+                    "description": "e_idno",
+                    "required": true,
+                    "type": "string"
+                },{
+                    "name": "file",
+                    "in": "formData",
+                    "description": "file to upload",
+                    "required": true,
+                    "type": "file"
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/api/1.0/payroll" : {
+            "get": {
+                "tags": [
+                    "Payroll"
+                ],
+                "description": "Display Created payroll period",
+                "summary": "Display Created payroll period",
+                "parameters": [],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            },
+            "post": {
+                "tags": [
+                    "Payroll"
+                ],
+                "description": "Adding an employee",
+                "summary": "Adding an employee",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "$ref": "#/definitions/createPayroll"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            }
+        },
+        "/api/1.0/payroll/{PayrollID}" : {
+            "put": {
+                "tags": [
+                    "Payroll"
+                ],
+                "description": "Display Created payroll period",
+                "summary": "Display Created payroll period",
+                "parameters": [{
+                    "name": "PayrollID",
+                    "in": "path",
+                    "description": "PayrollID",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "description": "employee Update Info",
+                    "schema": {
+                        "$ref": "#/definitions/editPayrollConfig"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            }
+        },
+        "/api/1.0/workSchedule" : {
+            "get": {
+                "tags": [
+                    "Work Schedule"
+                ],
+                "description": "Display Created work schedules",
+                "summary": "Display Created work schedules",
+                "parameters": [],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            },
+            "post": {
+                "tags": [
+                    "Work Schedule"
+                ],
+                "description": "Creating Work Schedule",
+                "summary": "Creating Work Schedule",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "",
+                    "schema": {
+                        "$ref": "#/definitions/createWorkSchedule"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            }
+        },
+        "/api/1.0/workSchedule/{SchedID}" : {
+            "put": {
+                "tags": [
+                    "Work Schedule"
+                ],
+                "description": "Edit created work schedules",
+                "summary": "Edit created work schedules",
+                "parameters": [{
+                    "name": "SchedID",
+                    "in": "path",
+                    "description": "SchedID",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "body",
+                    "in": "body",
+                    "description": "employee Update Info",
+                    "schema": {
+                        "$ref": "#/definitions/editWorkSchedule"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            },
+            "delete": {
+                "tags": [
+                    "Work Schedule"
+                ],
+                "description": "Edit created work schedules",
+                "summary": "Edit created work schedules",
+                "parameters": [{
+                    "name": "SchedID",
+                    "in": "path",
+                    "description": "SchedID",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            }
+        }
+    },
+    "definitions": {
+        "addEmployee": {
+            "properties": {
+                "e_idno": {
+                    "type": "string"
+                },
+                "e_ssno": {
+                    "type": "string"
+                },
+                "e_gsisno": {
+                    "type": "string"
+                },
+                "e_pagibigno": {
+                    "type": "string"
+                },
+                "e_philhealthno": {
+                    "type": "string"
+                },
+                "e_tinno": {
+                    "type": "string"
+                },
+                "e_fname": {
+                    "type": "string"
+                },
+                "e_lname": {
+                    "type": "string"
+                },
+                "e_mname": {
+                    "type": "string"
+                },
+                "e_suffix": {
+                    "type": "string"
+                },
+                "e_birthdate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "e_gender": {
+                    "type": "string"
+                },
+                "e_civil_status": {
+                    "type": "string"
+                },
+                "e_dateemployed": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "DeptID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "div_name": {
+                    "type": "string"
+                },
+                "jt_name": {
+                    "type": "string"
+                },
+                 "Status": {
+                    "type": "string"
+                },
+                 "e_provincialadd": {
+                    "type": "string"
+                },
+                 "Perhomeadd": {
+                    "type": "string"
+                },
+                 "e_email": {
+                    "type": "string"
+                },
+                 "e_mobile_number": {
+                    "type": "string"
+                },
+                 "EmergencyContactPerson": {
+                    "type": "string"
+                },
+                 "EmergencyTelNo": {
+                    "type": "string"
+                },
+                 "age": {
+                    "type": "string"
+                }
+            }
+        },
+        "editEmployee": {
+            "properties": {
+                "e_idno": {
+                    "type": "string"
+                },
+                "e_ssno": {
+                    "type": "string"
+                },
+                "e_gsisno": {
+                    "type": "string"
+                },
+                "e_pagibigno": {
+                    "type": "string"
+                },
+                "e_philhealthno": {
+                    "type": "string"
+                },
+                "e_tinno": {
+                    "type": "string"
+                },
+                "e_fname": {
+                    "type": "string"
+                },
+                "e_lname": {
+                    "type": "string"
+                },
+                "e_mname": {
+                    "type": "string"
+                },
+                "e_suffix": {
+                    "type": "string"
+                },
+                "e_birthdate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "e_gender": {
+                    "type": "string"
+                },
+                "e_civil_status": {
+                    "type": "string"
+                },
+                "e_dateemployed": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "DeptID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "div_name": {
+                    "type": "string"
+                },
+                "jt_name": {
+                    "type": "string"
+                },
+                 "Status": {
+                    "type": "string"
+                },
+                 "e_provincialadd": {
+                    "type": "string"
+                },
+                 "Perhomeadd": {
+                    "type": "string"
+                },
+                 "e_email": {
+                    "type": "string"
+                },
+                 "e_mobile_number": {
+                    "type": "string"
+                },
+                 "EmergencyContactPerson": {
+                    "type": "string"
+                },
+                 "EmergencyTelNo": {
+                    "type": "string"
+                },
+                 "age": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "createPayroll": {
+            "properties": {
+                "PayrollCode": {
+                    "type": "string"
+                },
+                "UsedMonth": {
+                    "type": "string"
+                },
+                "UsedYear": {
+                    "type": "string"
+                },
+                "Term": {
+                    "type": "string"
+                },
+                "FirstDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "SecondDate": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "editPayrollConfig": {
+            "properties": {
+                "PayrollCode": {
+                    "type": "string"
+                },
+                "UsedMonth": {
+                    "type": "string"
+                },
+                "UsedYear": {
+                    "type": "string"
+                },
+                "Term": {
+                    "type": "string"
+                },
+                "FirstDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "SecondDate": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "createWorkSchedule": {
+            "properties": {
+                "Code": {
+                    "type": "string"
+                },
+                "Template": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "Inactive": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "editWorkSchedule": {
+            "properties": {
+                "Code": {
+                    "type": "string"
+                },
+                "Template": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "Inactive": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        }         
+    }
+}
