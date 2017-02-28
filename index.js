@@ -27,9 +27,14 @@ var router = express.Router({
 require(application.utils + 'helper')(app, log, config);
 require(application.config + 'express')(app, config);
 // Routes
-
-require(application.routes + 'user')(app,config, middleware);
+require(application.routes + 'user')(app, config, middleware);
 require(application.routes + 'employee')(app, config, middleware);
 require(application.routes + 'payroll')(app,config, middleware);
 require(application.routes + 'workSchedule')(app,config, middleware);
+require(application.routes + 'attendance')(app,config, middleware);
+require(application.routes + 'jobTitle')(app,config, middleware);
+require(application.routes + 'division')(app,config, middleware);
+require(application.routes + 'status')(app,config, middleware);
+require(application.routes + 'company')(app,config, middleware);
+require(application.routes + 'department')(app,config, middleware);
 module.exports = app;

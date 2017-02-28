@@ -5,5 +5,4 @@
 /public/tmp
 .DS_Store
 .idea
-*.xlsx
 /public/bower_components

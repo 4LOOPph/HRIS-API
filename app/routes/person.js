@@ -1,4 +1,4 @@
-var person = require('./routing/person');
+var user = require('./routing/user');
 
 module.exports = function(app, config, middleware) {
 

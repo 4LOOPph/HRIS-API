@@ -72,5 +72,18 @@ exports.getProfilePicture = function onRequest(req, res) {
 };
 
 exports.editEmployee = function onRequest(req, res) {
-    employee.editEmployee([req.params.e_idno, req.body], cb.setupResponseCallback(res));
+    employee.editEmployee(req.params.e_idno, req.body, cb.setupResponseCallback(res));
 };
+
+exports.assignWorkSchedule = function onRequest(req, res) {
+    employee.assignWorkSchedule( [req.params.e_idno, req.body], cb.setupResponseCallback(res));
+};
+
+exports.assignDivision = function onRequest(req, res) {
+    employee.assignDivision(req.params.e_idno, req.body, cb.setupResponseCallback(res));
+};
+
+exports.getAttendanceMonitoring = function onRequest(req, res) {
+    employee.getAttendanceMonitoring(req.params.e_idno, cb.setupResponseCallback(res));
+};
+

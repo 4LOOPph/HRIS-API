@@ -19,3 +19,11 @@ exports.editWorkSchedule = function onRequest(req, res) {
 exports.deleteWorkSchedule = function onRequest(req, res) {
     workSchedule.deleteWorkSchedule(req.params.SchedID, cb.setupResponseCallback(res));
 };
+
+exports.createTimeSchedule = function onRequest(req, res) {
+    workSchedule.createTimeSchedule(req.body, cb.setupResponseCallback(res));
+};
+
+exports.showWorkTimeSchedule = function onRequest(req, res) {
+    workSchedule.showWorkTimeSchedule(req.params.SchedID, cb.setupResponseCallback(res));
+};

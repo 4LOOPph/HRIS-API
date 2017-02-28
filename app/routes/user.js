@@ -3,8 +3,6 @@
 var fs = require('fs')
 var person = require('./routing/person');
 var user = require('./routing/user');
-//var employee = require('./routing/employee');
-
 module.exports = function(app, config, middleware) {
 
     app.route('/')
@@ -38,7 +36,6 @@ module.exports = function(app, config, middleware) {
             });
         });
 
-
     app.route(config.api_version + '/user')    
         .get(user.User_login);
 
@@ -54,4 +51,4 @@ module.exports = function(app, config, middleware) {
         .put(person.updatePerson)
         .delete(person.deletePerson);
 
-};
+}

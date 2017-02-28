@@ -3,8 +3,10 @@
 'use strict';
 
 var express = require('express');
+var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
 var middleware = require('../app/utils/middleware');;
@@ -23,6 +25,7 @@ module.exports = function(app, config) {
     app.set('view engine', 'ejs');
     app.set('views', 'app/views/');
     app.use(morgan('dev'));
+    app.use(cors());
     app.use(methodOverride());
     app.use(cookieParser());
     app.use(expressValidator({
@@ -52,6 +55,7 @@ module.exports = function(app, config) {
     app.use(flash());
     app.use(middleware.allowCrossDomain);
     app.enable('trust proxy');
+    //app.use(users);
 
     /*process.on('uncaughtException', function(err) {
         console.log('Caught exception: ', err);

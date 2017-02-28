@@ -1,13 +1,13 @@
 'use strict';
 
-var workScheduleDao = require('./../dao/workScheduleDao');
+var companyDao = require('./../dao/companyDao');
 
-function WorkSchedule() {
-    this.workScheduleDao = workScheduleDao;
+function Company() {
+    this.companyDao = companyDao;
 }
 
-WorkSchedule.prototype.showAllWorkSchedule = function(next) {    
-    workScheduleDao.showAllWorkSchedule(function(err, response) {
+Company.prototype.createCompany = function(data, next) {    
+    companyDao.createCompany(data, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -23,8 +23,8 @@ WorkSchedule.prototype.showAllWorkSchedule = function(next) {
     });
 };
 
-WorkSchedule.prototype.createWorkSchedule = function(data, next) {    
-    workScheduleDao.createWorkSchedule(data, function(err, response) {
+Company.prototype.editCompanySetting = function(ci_name, data, next) {    
+    companyDao.editCompanySetting(ci_name, data, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -40,8 +40,8 @@ WorkSchedule.prototype.createWorkSchedule = function(data, next) {
     });
 };
 
-WorkSchedule.prototype.editWorkSchedule = function(data, SchedID, next) {    
-    workScheduleDao.editWorkSchedule(data, SchedID, function(err, response) {
+Company.prototype.showCompanyInformation = function(next) {    
+    companyDao.showCompanyInformation(function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -57,8 +57,8 @@ WorkSchedule.prototype.editWorkSchedule = function(data, SchedID, next) {
     });
 };
 
-WorkSchedule.prototype.deleteWorkSchedule = function(SchedID, next) {    
-    workScheduleDao.deleteWorkSchedule(SchedID, function(err, response) {
+Company.prototype.deleteCompany = function(ci_id, next) {    
+    companyDao.deleteCompany(ci_id, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -74,8 +74,8 @@ WorkSchedule.prototype.deleteWorkSchedule = function(SchedID, next) {
     });
 };
 
-WorkSchedule.prototype.createTimeSchedule = function(data, next) {    
-    workScheduleDao.createTimeSchedule(data, function(err, response) {
+Company.prototype.showSpecificCompany = function(ci_name, next) {    
+    companyDao.showSpecificCompany(ci_name, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -91,20 +91,4 @@ WorkSchedule.prototype.createTimeSchedule = function(data, next) {
     });
 };
 
-WorkSchedule.prototype.showWorkTimeSchedule = function(SchedID, next) {    
-    workScheduleDao.showWorkTimeSchedule(SchedID, function(err, response) {
-        if (err) {
-            next({
-                result: err,
-                msg: err.message,
-                success: false
-            }, null);
-        }
-        next(null, {
-            result: response,
-            msg: 'dzfgchvbjkl',
-            success: true
-        });
-    });
-};
-exports.WorkSchedule = WorkSchedule;
+exports.Company = Company;

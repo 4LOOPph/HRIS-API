@@ -1,13 +1,13 @@
 'use strict';
 
-var workScheduleDao = require('./../dao/workScheduleDao');
+var jobTitleDao = require('./../dao/jobTitleDao');
 
-function WorkSchedule() {
-    this.workScheduleDao = workScheduleDao;
+function JobTitle() {
+    this.jobTitleDao = jobTitleDao;
 }
 
-WorkSchedule.prototype.showAllWorkSchedule = function(next) {    
-    workScheduleDao.showAllWorkSchedule(function(err, response) {
+JobTitle.prototype.createJobTitle = function(data, next) {    
+    jobTitleDao.createJobTitle(data, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -23,8 +23,8 @@ WorkSchedule.prototype.showAllWorkSchedule = function(next) {
     });
 };
 
-WorkSchedule.prototype.createWorkSchedule = function(data, next) {    
-    workScheduleDao.createWorkSchedule(data, function(err, response) {
+JobTitle.prototype.showjobTitles = function(next) {    
+    jobTitleDao.showjobTitles(function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -40,8 +40,8 @@ WorkSchedule.prototype.createWorkSchedule = function(data, next) {
     });
 };
 
-WorkSchedule.prototype.editWorkSchedule = function(data, SchedID, next) {    
-    workScheduleDao.editWorkSchedule(data, SchedID, function(err, response) {
+JobTitle.prototype.JobTitleName = function(next) {    
+    jobTitleDao.JobTitleName(function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -57,8 +57,8 @@ WorkSchedule.prototype.editWorkSchedule = function(data, SchedID, next) {
     });
 };
 
-WorkSchedule.prototype.deleteWorkSchedule = function(SchedID, next) {    
-    workScheduleDao.deleteWorkSchedule(SchedID, function(err, response) {
+JobTitle.prototype.deleteJobTitle = function(jt_id, next) {    
+    jobTitleDao.deleteJobTitle(jt_id, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -74,8 +74,8 @@ WorkSchedule.prototype.deleteWorkSchedule = function(SchedID, next) {
     });
 };
 
-WorkSchedule.prototype.createTimeSchedule = function(data, next) {    
-    workScheduleDao.createTimeSchedule(data, function(err, response) {
+JobTitle.prototype.showSpecificJobTitle = function(jt_name, next) {    
+    jobTitleDao.showSpecificJobTitle(jt_name, function(err, response) {
         if (err) {
             next({
                 result: err,
@@ -90,21 +90,4 @@ WorkSchedule.prototype.createTimeSchedule = function(data, next) {
         });
     });
 };
-
-WorkSchedule.prototype.showWorkTimeSchedule = function(SchedID, next) {    
-    workScheduleDao.showWorkTimeSchedule(SchedID, function(err, response) {
-        if (err) {
-            next({
-                result: err,
-                msg: err.message,
-                success: false
-            }, null);
-        }
-        next(null, {
-            result: response,
-            msg: 'dzfgchvbjkl',
-            success: true
-        });
-    });
-};
-exports.WorkSchedule = WorkSchedule;
+exports.JobTitle = JobTitle;
