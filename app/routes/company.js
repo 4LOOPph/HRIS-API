@@ -2,7 +2,7 @@
 var fs = require('fs');
 
 //========= validator ============//
-//var validatorPayroll = require('./../validator/payrollValidator');
+var validatorCompany = require('./../validator/companyValidator');
 
 
 //=========== routes ===================//      
@@ -12,10 +12,10 @@ var company = require('./routing/company');
 module.exports = function(app, config, middleware) {
     
     app.route(config.api_version + '/createCompanySetting')
-    	.post(company.createCompany);    
+    	.post(validatorCompany.validateCompany, company.createCompany);    
        
     app.route(config.api_version + '/editCompanySetting/:ci_name')
-    	.put(company.editCompanySetting);
+    	.put(validatorCompany.validateCompany, company.editCompanySetting);
 
     app.route(config.api_version + '/showCompanyInformation')
     	.get(company.showCompanyInformation);  

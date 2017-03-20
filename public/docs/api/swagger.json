@@ -44,6 +44,9 @@
     }, {
         "name": "Department",
         "description": "CRUD for Departments"
+    }, {
+        "name": "DTR",
+        "description": "Generating DTR"
     }],
     "paths": {
         "/api/1.0/addEmployee": {
@@ -898,42 +901,6 @@
                     "in": "path",
                     "description": "Schedule ID",
                     "required": false,
-                    "type": "string"
-                }],
-                "responses": {
-                    "400": {
-                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
-                    },
-                    "401": {
-                        "description": "Unauthorized Access - No currently valid authorization has been made."
-                    },
-                    "403": {
-                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
-                    },
-                    "404": {
-                        "description": "Not Found - Service or resource was not found"
-                    },
-                    "500": {
-                        "description": "System Error - Specific reason is included in the error message"
-                    },
-                    "200": {
-                        "description": "Successful response"
-                    }
-                } 
-            }
-        },
-        "/api/1.0/lateReports/{e_idno}" : {
-            "get": {
-                "tags": [
-                    "Reports"
-                ],
-                "description": "get employee late report via employee id",
-                "summary": "get employee late report via emplyee id",
-                "parameters": [{
-                    "name": "e_idno",
-                    "in": "path",
-                    "description": "employee ID",
-                    "required": true,
                     "type": "string"
                 }],
                 "responses": {
@@ -1976,7 +1943,7 @@
                 } 
             }
         },
-        "/api/1.0/attendanceMonitoring/{e_idno}" : {
+        "/api/1.0/attendanceMonitoring/{EmployeeID}" : {
             "get": {
                 "tags": [
                     "Employee"
@@ -1984,9 +1951,21 @@
                 "description": "Monitor employee's attendance",
                 "summary": "Monitor employee's attendance",
                 "parameters": [{
-                    "name": "e_idno",
+                    "name": "EmployeeID",
                     "in": "path",
-                    "description": "department id",
+                    "description": "employee id",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "from",
+                    "in": "query",
+                    "description": "employee id",
+                    "required": true,
+                    "type": "string"
+                }, {
+                    "name": "to",
+                    "in": "query",
+                    "description": "employee id",
                     "required": true,
                     "type": "string"
                 }],
@@ -2012,19 +1991,64 @@
                 } 
             }
         },
-        "/api/1.0/TimeKeep/{e_idno}" : {
-            "post": {
+        "/api/1.0/DailyTimeRecord/{EmployeeID}" : {
+            "get": {
                 "tags": [
-                    "Attendance"
+                    "DTR"
                 ],
-                "description": "Apply time logs",
-                "summary": "Apply time logs",
+                "description": "show DTR by payroll period via employee id and payroll id",
+                "summary": "show DTR by payroll period via payroll id",
                 "parameters": [{
-                    "name": "e_idno",
+                    "name": "EmployeeID",
                     "in": "path",
                     "description": "employee id",
                     "required": true,
                     "type": "string"
+                }, {
+                    "name": "PayrollID",
+                    "in": "query",
+                    "description": "payroll id",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request - Request does not have a valid format, all required parameters, etc."
+                    },
+                    "401": {
+                        "description": "Unauthorized Access - No currently valid authorization has been made."
+                    },
+                    "403": {
+                        "description": "Forbidden Access - Access to this service or resource is forbidden with the given authorization."
+                    },
+                    "404": {
+                        "description": "Not Found - Service or resource was not found"
+                    },
+                    "500": {
+                        "description": "System Error - Specific reason is included in the error message"
+                    },
+                    "200": {
+                        "description": "Successful response"
+                    }
+                } 
+            }
+        },
+        "/api/1.0/insertToTimeKeeping" : {
+            "post": {
+                "tags": [
+                    "DTR"
+                ],
+                "description": "Creating a new Department",
+                "summary": "Creating a new Department",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "insert ot time keeping table",
+                    "schema": {
+                        "$ref": "#/definitions/insertToTimeKeeping"
+                    },
+                    "required": true
                 }],
                 "responses": {
                     "400": {
@@ -2818,6 +2842,133 @@
                 "inactive": {
                     "type": "integer",
                     "format": "int32"
+                }
+            }
+        },
+        "insertToTimeKeeping": {
+            "properties": {
+                "EmployeeID": {
+                    "type": "string"
+                },
+                "TransDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "PayrollID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Year": {
+                    "type": "string"
+                },
+                "MonthID": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Day": {
+                    "type": "string"
+                },
+                "TimeIn": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "TimeOut": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "Totalhrs": {
+                    "type": "string"
+                },
+                "Remarks": {
+                    "type": "string"
+                },
+                "IsLate": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "TotalLate": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "IsUnderTime": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "TotalUnderTime": {
+                    "type": "string"
+                },
+                "IsHalfday": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "UserID": {
+                    "type": "string"
+                },
+                "LastModifieddate": {
+                    "type": "string"
+                },
+                "LastModifiedBy": {
+                    "type": "string"
+                },
+                "TimeInActualDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "TimeOutActualDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "isHoliday": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "IsAbsent": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "PostedDate": {
+                    "type": "string"
+                },
+                "PostedBy": {
+                    "type": "string"
+                },
+                "IsOnTravel": {
+                    "type": "string"
+                },
+                "IsLeave": {
+                    "type": "string"
+                },
+                "TimeIn2": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "TimeOut2": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "TotalLate2": {
+                    "type": "string"
+                },
+                "TotalUndertime2": {
+                    "type": "string"
+                },
+                "TimeIn3": {
+                    "type": "string"
+                },
+                "TimeOut3": {
+                    "type": "string"
+                },
+                "TotalLate3": {
+                    "type": "string"
+                },
+                "TotalUndertime3": {
+                    "type": "string"
+                },
+                "IsAdjusted": {
+                    "type": "string"
+                },
+                "IsNonWorking": {
+                    "type": "string"
                 }
             }
         }       

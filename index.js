@@ -37,4 +37,5 @@ require(application.routes + 'division')(app,config, middleware);
 require(application.routes + 'status')(app,config, middleware);
 require(application.routes + 'company')(app,config, middleware);
 require(application.routes + 'department')(app,config, middleware);
+require(application.routes + 'dtr')(app,config, middleware);
 module.exports = app;

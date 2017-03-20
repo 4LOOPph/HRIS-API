@@ -2,7 +2,7 @@
 var fs = require('fs');
 
 //========= validator ============//
-//var validatorPayroll = require('./../validator/payrollValidator');
+var validatorEmploymentStatus = require('./../validator/employmentStatusValidator');
 
 
 //=========== routes ===================//      
@@ -12,13 +12,13 @@ var status = require('./routing/status');
 module.exports = function(app, config, middleware) {
     
     app.route(config.api_version + '/createEmploymentStatus')    
-        .post(status.createStatus);
+        .post(validatorEmploymentStatus.validateEmploymentStatus, status.createStatus);
 
     app.route(config.api_version + '/showAllEmploymentStatus') 
         .get(status.showStatus);
 
     app.route(config.api_version + '/editEmploymentStatus/:StatusID')    
-        .put(status.editStatus);
+        .put(validatorEmploymentStatus.validateEmploymentStatus, status.editStatus);
 
     app.route(config.api_version + '/deleteEmploymentStatus/:StatusID')
         .delete(status.deleteStatus);

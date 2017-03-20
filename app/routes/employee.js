@@ -37,7 +37,7 @@ module.exports = function(app, config, middleware) {
     app.route(config.api_version + '/employeeassignDivision/:e_idno')     
         .put(employee.assignDivision);
 
-    app.route(config.api_version + '/attendanceMonitoring/:e_idno') 
+    app.route(config.api_version + '/attendanceMonitoring/:EmployeeID') 
         .get(employee.getAttendanceMonitoring);
 
 };

@@ -65,7 +65,7 @@ exports.showSpecificPayrollbyID = function(PayrollID, next) {
         next(null, response);
     });
 };
-///////taronga
+
 exports.showSpecificPayrollbyCode = function(PayrollCode, next) {
     var str = mysql.format('SELECT PayrollCode AS "Period Code", UsedMonth AS "Month", UsedYear AS "Year", Term AS "Payroll Term", concat(FirstDate," to ",SecondDate) AS "Date Covered" from payroll where PayrollCode like lower("%"?"%");', [PayrollCode]);
     db.query(str, function(err, response) {

@@ -24,7 +24,7 @@ exports.showDepartment = function(next) {
         next(null, response);
     });
 };
-////////////
+
 exports.editDepartment = function(d_id, data, next) {
     var str = mysql.format('UPDATE departments SET d_name = ?, d_datemodified = (SELECT NOW()), d_code = ?, short_name = ?, d_desc = ?, inactive = ? WHERE d_id = ?', 
         [data.d_name, data.d_code, data.short_name, data.d_desc, data.inactive, d_id]);

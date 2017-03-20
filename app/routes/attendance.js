@@ -14,7 +14,7 @@ module.exports = function(app, config, middleware) {
     app.route(config.api_version + '/attendance/:e_idno')    
         .post(attendance.attendance);
 
-    app.route(config.api_version + '/TimeKeep/:e_idno')    
-        .post(attendance.timeKeep);
+    app.route(config.api_version + '/showDTR/:EmployeeID')    
+        .get(attendance.showDTR);
 
 };

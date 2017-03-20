@@ -18,30 +18,13 @@ exports.attendance = function(e_idno, next) {
 
 };
 
-exports.timeKeep = function(e_idno, next) {
-    //var row;
-    async.waterfall([
-        function(callback){
-            var strp = mysql.format('SELECT ScheduleID FROM employees where e_idno = ?', [e_idno]);
-            db.query(strp, function(err, ScheduleID) {
-                if (err) {
-                    callback(err, null);
-                }
-                ScheduleID = ScheduleID[0];
-                ScheduleID = ScheduleID[Object.keys(ScheduleID)[0]];
-                console.log(ScheduleID)
-                callback(null, ScheduleID);
-            });
-        },
-        function(ScheduleID, callback){
-            var stri = mysql.format('SELECT * from time_schedule where SchedID = ?', [ScheduleID]);
-            db.query(stri, function(err, row) {
-                if (err) {
-                    callback(err, null);
-                }
-                row = row[0];
-                callback(null, row);
-            });
+exports.showDTR = function(EmployeeID, query_data, next) {
+    var str = mysql.format('SELECT distinct PayrollID, Day, TimeIn, TimeOut, Totalhrs, IsLate, IsUnderTime, TimeIn2, TimeOut2 from time_keeping where EmployeeID = ? and PayrollID = ? order by TimeIn;', [EmployeeID, query_data.PayrollID]);
+    db.query(str, function(err, response) {
+        if (err) {
+            next(err, null);
         }
-    ], next);
+        next(null, response);
+    });
+
 };

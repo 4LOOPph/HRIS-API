@@ -8,6 +8,6 @@ exports.attendance = function onRequest(req, res) {
     attendance.attendance(req.params.e_idno, cb.setupResponseCallback(res));
 };
 
-exports.timeKeep = function onRequest(req, res) {
-    attendance.timeKeep(req.params.e_idno, cb.setupResponseCallback(res));
+exports.showDTR = function onRequest(req, res) {
+    attendance.showDTR(req.params.EmployeeID, req.query, cb.setupResponseCallback(res));
 };

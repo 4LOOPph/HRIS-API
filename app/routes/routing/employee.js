@@ -84,6 +84,6 @@ exports.assignDivision = function onRequest(req, res) {
 };
 
 exports.getAttendanceMonitoring = function onRequest(req, res) {
-    employee.getAttendanceMonitoring(req.params.e_idno, cb.setupResponseCallback(res));
+    employee.getAttendanceMonitoring(req.params.EmployeeID, req.query, cb.setupResponseCallback(res));
 };
 

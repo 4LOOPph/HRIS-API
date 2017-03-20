@@ -21,7 +21,6 @@ exports.addEmployee = function(data, next) {
         },
         function(e_idno, callback) {
             console.log('e_idno', e_idno);
-            //var e_id = e_idno;
             var str = mysql.format('INSERT into employee_family_background(EmployeeID, EmergencyContactPerson, EmergencyTelNo) values(?, ?, ?);', [e_idno, data.EmergencyContactPerson, data.EmergencyTelNo]);
             db.query(str, function(err, response) {
                 if (err) {
@@ -46,6 +45,7 @@ exports.addEmployee = function(data, next) {
 
 exports.showEmployees = function(next) {
     var str = mysql.format('SELECT distinct e.device_no AS "Employee ID", CONCAT(e.e_lname, ", ", e.e_fname," ", LEFT(e.e_mname, 1),".",e.e_suffix,"  " ) AS Name, j.jt_name AS "Job Title", d.d_name AS "Department", s.Status AS "Status" FROM employees e, job_titles j, departments d, employment_status s where e.jt_id = j.jt_id and e.s_id = s.StatusID order by e.e_idno;');
+    console.log(str)
     db.query(str, function(err, response) {
         if (err) {
             next(err, null);
@@ -56,7 +56,6 @@ exports.showEmployees = function(next) {
 
 exports.showSpecificEmployee = function(e_idno, next) {
     var str = mysql.format('SELECT distinct e.device_no AS "Employee ID", CONCAT(e.e_lname, ", ", e.e_fname," ", LEFT(e.e_mname, 1),".",e.e_suffix,"  " ) AS Name, j.jt_name AS "Job Title", d.d_name AS "Department", s.Status AS "Status" FROM employees e, job_titles j, departments d, employment_status s where e.e_lname like lower(?"%") and e.jt_id = j.jt_id and e.s_id = s.StatusID or e.e_idno = ? and e.jt_id = j.jt_id and e.s_id = s.StatusID;', [e_idno, e_idno]);
-    //console.log("sdvs ". str)
     db.query(str, function(err, response) {
         if (err) {
             next(err, null);
@@ -123,12 +122,30 @@ exports.assignDivision = function(e_idno, data, next) {
     });
 };
 
-exports.getAttendanceMonitoring = function(e_idno, next) {
-    var str = mysql.format('SELECT TimeLog FROM hr_pi.time_logs where EmployeeID = ? order by TimeLog desc;', [e_idno]);
+exports.getAttendanceMonitoring = function(EmployeeID, query_param, next) {
+    var str = mysql.format('SELECT TimeLog FROM time_logs where LogDate >= ? and LogDate <= ? and (EmployeeID = ?) order by LogDate;', [query_param.from, query_param.to, EmployeeID]);
     db.query(str, function(err, response) {
         if(err){
             next(err, null);
         }
-        next(null, response)
+        var i=0, res=[], day_name =['Sunday','Monday', 'Teusday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        while(i<=response.length-1){
+            var temp = [], l=0;
+            while(true){
+                temp.push(response[i].TimeLog);
+                if(response[i+1] == undefined){
+                    break;
+                }
+                if(temp[temp.length-1].slice(0,10) != response[i+1].TimeLog.slice(0,10)){
+                    break;
+                }
+                i++;
+            }
+            var day = new Date(temp[0])
+            res.push(day_name[day.getDay()])
+            res.push(temp);
+            i++;
+        }
+        next(null, res)
     })
 }

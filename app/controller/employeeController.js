@@ -143,8 +143,8 @@ Employee.prototype.assignDivision = function(e_idno, data, next) {
     });
 };
 
-Employee.prototype.getAttendanceMonitoring = function(e_idno, next) {
-    employeeDao.getAttendanceMonitoring(e_idno, function(err, response) {
+Employee.prototype.getAttendanceMonitoring = function(EmployeeID, query_param, next) {
+    employeeDao.getAttendanceMonitoring(EmployeeID, query_param, function(err, response) {
         if(err){
            next({
                 result: err,

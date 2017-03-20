@@ -23,8 +23,8 @@ Attendance.prototype.attendance = function(e_idno, next) {
     });
 };
 
-Attendance.prototype.timeKeep = function(e_idno, next) {    
-    attendanceDao.timeKeep(e_idno, function(err, response) {
+Attendance.prototype.showDTR = function(EmployeeID, query_data, next) {    
+    attendanceDao.showDTR(EmployeeID, query_data, function(err, response) {
         if (err) {
             next({
                 result: err,
